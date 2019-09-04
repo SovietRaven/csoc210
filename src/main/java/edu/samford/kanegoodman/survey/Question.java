@@ -25,7 +25,7 @@ public class Question {
      * Use the given prompt with all the other default attributes. 
      */
     public Question(String firstPrompt) {
-        this();
+        this(); //Calling method (defualt constuctor) that takes no parameters
         this.firstPrompt = firstPrompt;
         //or public Question(String p) and firstPrompt = p
     }//convience constructor
@@ -50,4 +50,12 @@ public class Question {
     public void displaySecond() {
         System.out.println(secondPrompt);
     }//end public void displaySecond
+/**
+ * Returns true if the given response is within the range
+ * @param scaleResponse - the user supplied response 
+ * @return true if scaleResponce between Min and Max
+ */
+    public boolean checkResponse(int scaleResponse) {
+        return scaleResponse>=minScale && scaleResponse<=maxScale;
+    }
 }//end class Question
