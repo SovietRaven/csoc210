@@ -22,6 +22,12 @@ public class Answer {
         this.scaleResponse = q.minScale;
         this.additionalResponse = "N/A";
     }//end Public Answer(Question q)
+    
+    public Answer(Question q,int scaleResponse, String additionalResponse) {
+        this.q = q;
+        this.scaleResponse = scaleResponse;
+        this.additionalResponse = additionalResponse;
+    }
 
     /**
      * Retrieve the anser to the scale question from stdin (i.e., the keyboard
