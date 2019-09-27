@@ -20,7 +20,11 @@ public class PreformanceComparison {
         long listtime= 0;
 
         // 1. generate a lot of data
+        try{
         generateData();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
         
         //2. prepare output for excel
         System.out.println("operation,array,linkedlist");
@@ -105,18 +109,15 @@ public class PreformanceComparison {
         finish = System.nanoTime();
         listtime = finish-start;
          System.out.println("insert middle,"+arraytime/1_000_000+","+listtime/1_000_000);
-        //ADD INSERT END FOR BOTH
-        //ADD REMOVING ITEMS FROM BEGGINING, MIDDLE, END(numlist.remove(numlist.first/last(find middle))
         
         //Removing from Beginning
-        
-//remove [0] from nums
-//shift the numbers to the index to the left
+  
         start = System.nanoTime();
-        //of inssert : for loop :take item after and copying one before i=1 
-        //nums i - 1 = nums i - very end length  (create a new array whos 1 smaller)
-        //nums = temp(outside loop)
-        nums.remove(nums[0]);
+
+        tmp = new double[nums.length-1];
+        for (int j = 1; j < tmp.length; j++) {
+        tmp[j] = nums[j+1];
+        }
         finish = System.nanoTime();
         arraytime = finish-start;
         
@@ -129,8 +130,7 @@ public class PreformanceComparison {
         System.out.println("Remove Beginning,"+arraytime/1_000_000+","+listtime/1_000_000);
     
         //Remove from Middle
-        //???
-        //list
+        //list first
         start = System.nanoTime();
         theMiddle = numlist.size()/2;
         cur = numlist.first();
@@ -140,21 +140,31 @@ public class PreformanceComparison {
             i++;
         }//End while(i<theMiddle)
         numlist.remove(cur);
-        //add finish and listtime
-        
+        finish = System.nanoTime();
+        listtime = finish-start;
         
         start = System.nanoTime();
-        //create temp array first, loops go 0 to middle, copy position for position temp i = nums i
-        //go from middle + 1 to the end temp i - 1 = nums i then finally switch
+        
+         tmp = new double[nums.length-1];
+         for(int k = 0; k<tmp.length/2; k++){
+             tmp[k] = nums[k];
+         }//gives first half before the middle?
+        for (int k = 1+tmp.length/2; k < tmp.length; k++) {
+           tmp[k] = nums[k+1];
+            
+        }//End forj gives second half after middle?
+        
         finish = System.nanoTime();
         arraytime = finish-start;
         System.out.println("Remove Middle,"+arraytime/1_000_000+","+listtime/1_000_000);
         
 //Remove from End
 
-//remove [Max] from nums
         start = System.nanoTime();
-        //create temp array and copying to new one that is smaller
+        tmp = new double[nums.length-1];
+        for (int l = 0; l < tmp.length-1; l++) {
+        tmp[l] = nums[l];
+        }
         finish = System.nanoTime();
         arraytime = finish-start;
         
@@ -165,11 +175,25 @@ public class PreformanceComparison {
         System.out.println("Remove End,"+arraytime/1_000_000+","+listtime/1_000_000);
         
 //replacing at any position(pick one and can hard code)
-//replace item in the middle numlist.replace-> cur.setelement (gives element new data)
-        //does this work and add in timers
+
+        start = System.nanoTime();
         nums[nums.length/2] = Math.random();
+        finish = System.nanoTime();
+        arraytime = finish-start;
         
         
+        start = System.nanoTime();
+        theMiddle = numlist.size()/2;
+        cur = numlist.first();
+        i = 0;
+        while(i<theMiddle){
+            cur = cur.getNext();
+            i++;
+        }//End while(i<theMiddle)
+        numlist.replace(cur, Math.random());
+        finish = System.nanoTime();
+        listtime = finish-start;
+        System.out.println("Replace middle,"+arraytime/1_000_000+","+listtime/1_000_000);
 //to add in excell drag control c and open excell paste contol v use [DO NOT WANT SPACE BUT WANT COMMAS and CHART using data ] text import wizard next comma finish
     }//End psvm
 
@@ -179,6 +203,7 @@ public class PreformanceComparison {
         for(int i=0; i<MAX; i++)
         out.println(Math.random());
         out.close();
+        
     }//End  private static void generateData()
     
 }//End public class PreformanceComparison
