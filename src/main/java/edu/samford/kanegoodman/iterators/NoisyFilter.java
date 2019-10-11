@@ -28,6 +28,7 @@ public class NoisyFilter {
         while (avgOfAverages<1.0) {
             double tempX = 0;
             for (int i=0; i<20; i++) {
+                temps = new DLinkedList<>();
                 generateNoisyData(90, 110, prob);//generates data(low,high,outofbounds prob)
                 double avg1 = calculateAverage();//calcs average
                 System.out.println("average with noisey data" + avg1);
@@ -59,7 +60,7 @@ public class NoisyFilter {
             if (Math.random() < noiseprob) {
                 //GENERATE NOISY READING
                 //Investigate this number (currently 1%)
-                temps.insertLast(r.nextInt(2000));//generates # 0-200
+                temps.insertLast(r.nextInt(200));//generates # 0-200
 
             } else {
                 //Generate typical summer Alabama reading
