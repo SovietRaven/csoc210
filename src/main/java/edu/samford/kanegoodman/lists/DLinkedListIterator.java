@@ -11,9 +11,9 @@ import java.util.function.Consumer;
  *
  * @author kanegoodman
  */
-public class DLinkedListIterator<T> implements Iterator<T> {
-    protected DLinkedList<T> theList;
-    protected DNode<T> cur;
+public class DLinkedListIterator<T extends Comparable> implements Iterator<T> {
+    protected DLinkedList<T> theList; //TheList we are iterating over
+    protected DNode<T> cur; //Cur current position within the list
     public DLinkedListIterator(DLinkedList<T> theList){
         this.theList = theList;
         cur = theList.first();//returns reference to first REAL node in list NULL if empty
